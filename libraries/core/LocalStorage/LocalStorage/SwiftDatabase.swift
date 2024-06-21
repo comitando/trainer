@@ -1,7 +1,7 @@
 import Foundation
 import SwiftData
 
-protocol SwiftDatabase<T>: Database {
+public protocol SwiftDatabase<T>: Database {
     associatedtype T = PersistentModel
     var container: ModelContainer { get }
 }
