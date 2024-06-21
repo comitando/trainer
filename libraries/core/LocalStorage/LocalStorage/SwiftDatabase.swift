@@ -30,12 +30,6 @@ extension SwiftDatabase {
         return try context.fetch(fetchDescriptor)
     }
     
-    func update<T: PersistentModel>(_ item: T) throws {
-        let context = ModelContext(container)
-        context.insert(item)
-        try context.save()
-    }
-    
     func delete<T: PersistentModel>(_ item: T) throws {
         let context = ModelContext(container)
         let idToDelete = item.persistentModelID

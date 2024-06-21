@@ -9,7 +9,12 @@ final class SwiftDatabaseTests: XCTestCase {
         
         let model = Mock(name: "testSwiftDatabase_createData")
         
-        try create(sut: sut, items: [model])
+        do {
+            try sut.create(model)
+            XCTAssertTrue(true, "model created successfully")
+        } catch {
+            XCTFail("expected success but returned \(error.localizedDescription)")
+        }
     }
     
     func testSwiftDatabase_createMultipleData() throws {
@@ -43,6 +48,7 @@ final class SwiftDatabaseTests: XCTestCase {
             XCTFail("expected success but returned \(error.localizedDescription)")
         }
     }
+
 }
 
 private extension SwiftDatabaseTests {
