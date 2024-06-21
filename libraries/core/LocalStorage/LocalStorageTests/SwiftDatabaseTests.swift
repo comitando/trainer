@@ -9,12 +9,7 @@ final class SwiftDatabaseTests: XCTestCase {
         
         let model = Mock(name: "testSwiftDatabase_createData")
         
-        do {
-            try sut.create(model)
-            XCTAssertTrue(true, "model created successfully")
-        } catch {
-            XCTFail("expected success but returned \(error.localizedDescription)")
-        }
+        try create(sut: sut, items: [model])
     }
     
     func testSwiftDatabase_createMultipleData() throws {
@@ -23,14 +18,42 @@ final class SwiftDatabaseTests: XCTestCase {
         let modelOne = Mock(name: "testSwiftDatabase_createMultipleData_one")
         let modelTwo = Mock(name: "testSwiftDatabase_createMultipleData_two")
         
+        try create(sut: sut, items: [modelOne, modelTwo])
+    }
+    
+    func testSwiftDatabase_readAfterCreateData() throws {
+        let sut = try MockDB()
+        let model = Mock(name: "testSwiftDatabase_createData")
+        try create(sut: sut, items: [model])
+        
+        let result = try sut.read(sortBy: SortDescriptor<Mock>(\.name))
+        
+        XCTAssertEqual(result.count, 1)
+    }
+    
+    func testSwiftDatabase_deleteAfterCreateData() throws {
+        let sut = try MockDB()
+        let model = Mock(name: "testSwiftDatabase_createMultipleData_one")
+        try create(sut: sut, items: [model])
+        
         do {
-            try sut.create([modelOne, modelTwo])
-            XCTAssertTrue(true, "model created successfully")
+            try sut.delete(model)
+            XCTAssertTrue(true, "model deleted successfully")
         } catch {
             XCTFail("expected success but returned \(error.localizedDescription)")
         }
     }
-        
+}
+
+private extension SwiftDatabaseTests {
+    func create(sut: MockDB, items: [Mock], file: StaticString = #filePath, line: UInt = #line) throws {
+        do {
+            try sut.create(items)
+            XCTAssertTrue(true, "model created successfully", file: file, line: line)
+        } catch {
+            XCTFail("expected success but returned \(error.localizedDescription)")
+        }
+    }
 }
 
 @Model
