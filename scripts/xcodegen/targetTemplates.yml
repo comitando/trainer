@@ -1,0 +1,72 @@
+targetTemplates:
+  DynamicFramework:
+    platform: iOS
+    type: framework
+    sources:
+    - path: "${frameworkPath}/${target_name}"
+    info:
+      path: "${frameworkPath}/${target_name}/Info.plist"
+    settings:
+      CODE_SIGN_IDENTITY: ""
+  
+  StaticFramework:
+    platform: iOS
+    type: framework
+    sources:
+    - path: "${frameworkPath}/${target_name}"
+    info:
+      path: "${frameworkPath}/${target_name}/Info.plist"
+    settings:
+      CODE_SIGN_IDENTITY: ""
+      MACH_O_TYPE: staticlib
+  
+  FrameworkTests:
+    platform: iOS
+    type: bundle.unit-test
+    sources:
+    - path: "${frameworkPath}/${target_name}"
+      excludes:
+      - __Snapshots__
+      - "**/__Snapshots__"
+    info:
+      path: "${frameworkPath}/${target_name}/Info.plist"
+  
+  UIFramework: 
+    platform: iOS
+    type: framework
+    sources:
+    - path: "${frameworkPath}/${target_name}"
+    info:
+      path: "${frameworkPath}/${target_name}/Info.plist"
+    settings:
+      CODE_SIGN_IDENTITY: ""
+      MACH_O_TYPE: staticlib
+  
+  iOSApp:
+    platform: iOS
+    type: application
+    sources: 
+      - path: "${frameworkPath}/${target_name}"
+    settings:
+      base: 
+        INFOPLIST_FILE: "${frameworkPath}/${target_name}/Info.plist"
+        PRODUCT_BUNDLE_IDENTIFIER: br.com.comitando.iOS.${target_name}
+
+      configs:
+        Release:
+          CODE_SIGN_IDENTITY: "Apple Distribution: Julio Fernandes (6BPH8672S8)"
+          PROVISIONING_PROFILE_SPECIFIER: "match AppStore br.com.comitando.iOS.${target_name}"
+        Debug:
+          CODE_SIGN_IDENTITY: "Apple Development: Julio Fernandes (RRR2UZ75HH)"
+          PROVISIONING_PROFILE_SPECIFIER: "match Development br.com.comitando.iOS.${target_name}"
+      
+  iOSAppTests:
+    platform: iOS
+    type: bundle.unit-test
+    sources: 
+      - path: "${frameworkPath}/${target_name}"
+        excludes:
+          - "__Snapshots__"
+          - "**/__Snapshots__"
+    info:
+      path: "${frameworkPath}/${target_name}/Info.plist"
