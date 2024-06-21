@@ -13,4 +13,9 @@ include:
   - path: scripts/xcodegen/targetTemplates.yml
     relativePaths: false
 
+  # ###############################
+  # Core Targets
+  # ###############################
+  - path: libraries/core/DependencyInjector/project.yml
+    relativePaths: false
   
