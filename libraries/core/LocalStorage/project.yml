@@ -1,0 +1,44 @@
+############
+# Targets
+############
+
+targets:
+
+  LocalStorage:
+    
+    # templates
+    templates: 
+      - StaticFramework
+    
+    # templateAttributes
+    templateAttributes: 
+      frameworkPath: libraries/core/LocalStorage
+    
+    dependencies:
+     - target: DependencyInjector
+      
+    # scheme
+    scheme:
+      gatherCoverageData: true
+      coverageTargets:
+        - LocalStorage
+      testTargets:
+        - name: LocalStorageTests
+          parallelizable: true
+          randomExecutionOrder: true
+
+  LocalStorageTests:
+    
+    # templates
+    templates: 
+      - FrameworkTests
+    
+    # templateAttributes
+    templateAttributes: 
+      frameworkPath: libraries/core/LocalStorage
+
+    # dependencies
+    dependencies:
+      - target: LocalStorage
+
+    
