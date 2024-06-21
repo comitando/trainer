@@ -12,6 +12,8 @@ platform :ios, '15.0'
 load './scripts/podfile/external_libs.rb'
 load './scripts/podfile/load_libs.rb'
 
+CoreDependencyInjector()
+
 post_install do |installer|9
   installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
