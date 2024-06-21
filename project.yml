@@ -1,0 +1,16 @@
+---
+name: Trainer
+include:
+  ###############################
+  # Settings
+  ###############################
+  - path: scripts/xcodegen/settings.yml
+    relativePaths: false
+
+  ###############################
+  # TargetTemplates
+  ###############################
+  - path: scripts/xcodegen/targetTemplates.yml
+    relativePaths: false
+
+  
