@@ -6,7 +6,7 @@ public protocol SwiftDatabase<T>: Database {
     var container: ModelContainer { get }
 }
 
-extension SwiftDatabase {
+public extension SwiftDatabase {
     
     func create<T: PersistentModel>(_ items: [T]) throws {
         let context = ModelContext(container)
@@ -22,9 +22,18 @@ extension SwiftDatabase {
         try context.save()
     }
     
-    func read<T: PersistentModel>(sortBy sortDescriptors: SortDescriptor<T>...) throws -> [T] {
+    func load<T: PersistentModel>(sortBy sortDescriptors: SortDescriptor<T>...) throws -> [T] {
         let context = ModelContext(container)
         let fetchDescriptor = FetchDescriptor<T>(
+            sortBy: sortDescriptors
+        )
+        return try context.fetch(fetchDescriptor)
+    }
+    
+    func search<T: PersistentModel>(predicate: Predicate<T>?, sortBy sortDescriptors: SortDescriptor<T>...) throws -> [T] {
+        let context = ModelContext(container)
+        let fetchDescriptor = FetchDescriptor<T>(
+            predicate: predicate,
             sortBy: sortDescriptors
         )
         return try context.fetch(fetchDescriptor)

@@ -31,7 +31,7 @@ final class SwiftDatabaseTests: XCTestCase {
         let model = Mock(name: "testSwiftDatabase_createData")
         try create(sut: sut, items: [model])
         
-        let result = try sut.read(sortBy: SortDescriptor<Mock>(\.name))
+        let result = try sut.load(sortBy: SortDescriptor<Mock>(\.name))
         
         XCTAssertEqual(result.count, 1)
     }
@@ -47,6 +47,18 @@ final class SwiftDatabaseTests: XCTestCase {
         } catch {
             XCTFail("expected success but returned \(error.localizedDescription)")
         }
+    }
+    
+    func testSwiftDatabase_searchAfterCreateData() throws {
+        let sut = try MockDB()
+        let modelOne = Mock(name: "testSwiftDatabase_createMultipleData_one")
+        let modelTwo = Mock(name: "testSwiftDatabase_createMultipleData_two")
+        try create(sut: sut, items: [modelOne, modelTwo])
+        
+        let value: String = modelOne.name
+        let predicate = #Predicate<Mock> { $0.name.contains(value) }
+        let result = try sut.search(predicate: predicate, sortBy: SortDescriptor<Mock>(\.name))
+        XCTAssertEqual(result.count, 1)
     }
 
 }
