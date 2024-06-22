@@ -1,0 +1,56 @@
+############
+# Targets
+############
+
+targets:
+
+  UserAccountInterface:
+    
+    # templates
+    templates: 
+      - StaticFramework
+    
+    # templateAttributes
+    templateAttributes: 
+      frameworkPath: libraries/domain/UserAccount
+    
+  UserAccount:
+    
+    # templates
+    templates: 
+      - StaticFramework
+    
+    # templateAttributes
+    templateAttributes: 
+      frameworkPath: libraries/domain/UserAccount
+    
+    dependencies:
+     - target: DependencyInjector
+     - target: LocalStorage
+     - target: UserAccountInterface
+      
+    # scheme
+    scheme:
+      gatherCoverageData: true
+      coverageTargets:
+        - UserAccount
+      testTargets:
+        - name: UserAccountTests
+          parallelizable: true
+          randomExecutionOrder: true
+
+  UserAccountTests:
+    
+    # templates
+    templates: 
+      - FrameworkTests
+    
+    # templateAttributes
+    templateAttributes: 
+      frameworkPath: libraries/domain/UserAccount
+
+    # dependencies
+    dependencies:
+      - target: UserAccount
+
+    
