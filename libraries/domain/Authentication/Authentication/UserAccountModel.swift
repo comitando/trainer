@@ -3,8 +3,9 @@ import SwiftData
 
 @Model
 final class UserAccountModel {
-    @Attribute(.unique) let id: UUID
     @Attribute(.unique) let email: String
+    
+    let id: UUID
     let name: String
     let gender: String
     let birthday: Date

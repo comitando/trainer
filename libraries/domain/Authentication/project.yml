@@ -4,7 +4,7 @@
 
 targets:
 
-  UserAccountInterface:
+  AuthenticationInterface:
     
     # templates
     templates: 
@@ -12,9 +12,9 @@ targets:
     
     # templateAttributes
     templateAttributes: 
-      frameworkPath: libraries/domain/UserAccount
+      frameworkPath: libraries/domain/Authentication
     
-  UserAccount:
+  Authentication:
     
     # templates
     templates: 
@@ -22,24 +22,24 @@ targets:
     
     # templateAttributes
     templateAttributes: 
-      frameworkPath: libraries/domain/UserAccount
+      frameworkPath: libraries/domain/Authentication
     
     dependencies:
      - target: DependencyInjector
      - target: LocalStorage
-     - target: UserAccountInterface
+     - target: AuthenticationInterface
       
     # scheme
     scheme:
       gatherCoverageData: true
       coverageTargets:
-        - UserAccount
+        - Authentication
       testTargets:
-        - name: UserAccountTests
+        - name: AuthenticationTests
           parallelizable: true
           randomExecutionOrder: true
 
-  UserAccountTests:
+  AuthenticationTests:
     
     # templates
     templates: 
@@ -47,10 +47,10 @@ targets:
     
     # templateAttributes
     templateAttributes: 
-      frameworkPath: libraries/domain/UserAccount
+      frameworkPath: libraries/domain/Authentication
 
     # dependencies
     dependencies:
-      - target: UserAccount
+      - target: Authentication
 
     

@@ -8,3 +8,14 @@ def CoreDependencyInjector
         end
     end
 end
+
+def Authentication
+    target 'Authentication' do
+        # Libs bundled outside
+        dependency_injector_pods
+    
+        target 'AuthenticationTests' do
+            
+        end
+    end
+end

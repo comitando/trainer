@@ -1,6 +1,6 @@
 import Foundation
 
-public struct UserAccount {
+public struct UserAccount: Equatable {
     public let id: UUID
     public let name: String
     public let email: String
@@ -27,6 +27,7 @@ public enum UserAccountGender: String {
     case male, female
 }
 
-public enum UserAccountState: Error {
+public enum UserAccountError: Error, Equatable {
+    case notFound
     case userExists(String)
 }

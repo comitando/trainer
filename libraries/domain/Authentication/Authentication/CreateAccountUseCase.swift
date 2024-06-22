@@ -1,23 +1,23 @@
 import CryptoKit
 import Foundation
-import UserAccountInterface
+import AuthenticationInterface
 import LocalStorage
 
 final class CreateAccountUseCase: UserAccountInterface {
     
-    private let database: CreateAccountData
+    private let database: UserAccountData
     private let sortByDefault: SortDescriptor = SortDescriptor<UserAccountModel>(\.name)
     
-    init(database: CreateAccountData) {
+    init(database: UserAccountData) {
         self.database = database
     }
     
     func createAccount(_ data: UserAccount) throws {
-        let id: String = data.id.uuidString
-        let predicate = #Predicate<UserAccountModel> { $0.id.uuidString.contains(id) }
+        let email: String = data.email
+        let predicate = #Predicate<UserAccountModel> { $0.email.localizedStandardContains(email) }
         
         guard try database.search(predicate: predicate, sortBy: sortByDefault).isEmpty else {
-            throw UserAccountState.userExists(data.email)
+            throw UserAccountError.userExists(data.email)
         }
         
         try database.create(data.toModel()) 

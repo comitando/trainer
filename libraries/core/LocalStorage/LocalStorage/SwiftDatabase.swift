@@ -32,10 +32,7 @@ public extension SwiftDatabase {
     
     func search<T: PersistentModel>(predicate: Predicate<T>?, sortBy sortDescriptors: SortDescriptor<T>...) throws -> [T] {
         let context = ModelContext(container)
-        let fetchDescriptor = FetchDescriptor<T>(
-            predicate: predicate,
-            sortBy: sortDescriptors
-        )
+        let fetchDescriptor = FetchDescriptor<T>(predicate: predicate, sortBy: sortDescriptors)
         return try context.fetch(fetchDescriptor)
     }
     

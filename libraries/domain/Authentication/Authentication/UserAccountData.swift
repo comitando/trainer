@@ -2,9 +2,7 @@ import Foundation
 import LocalStorage
 import SwiftData
 
-protocol CreateAccountDataInterface: SwiftDatabase {}
-
-final class CreateAccountData: CreateAccountDataInterface {
+final class UserAccountData: SwiftDatabase {
     typealias T = UserAccountModel
     internal let container: ModelContainer
     
