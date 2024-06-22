@@ -14,9 +14,11 @@ include:
   relativePaths: false
 
 # ###############################
-# Core Targets
+# Targets
 # ###############################
 - path: libraries/core/DependencyInjector/project.yml
   relativePaths: false
 - path: libraries/core/LocalStorage/project.yml
+  relativePaths: false
+- path: libraries/domain/UserAccount/project.yml
   relativePaths: false
