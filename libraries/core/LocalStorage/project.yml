@@ -24,6 +24,7 @@ targets:
         - LocalStorage
       testTargets:
         - name: LocalStorageTests
+          parallelizable: true
           randomExecutionOrder: true
 
   LocalStorageTests:
