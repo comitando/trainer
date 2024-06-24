@@ -1,0 +1,44 @@
+############
+# Targets
+############
+
+targets:
+
+  DesignSystem:
+    
+    # templates
+    templates: 
+      - StaticFramework
+    
+    # templateAttributes
+    templateAttributes: 
+      frameworkPath: libraries/core/DesignSystem
+    
+    dependencies:
+     - target: DependencyInjector
+      
+    # scheme
+    scheme:
+      gatherCoverageData: true
+      coverageTargets:
+        - DesignSystem
+      testTargets:
+        - name: DesignSystemTests
+          parallelizable: true
+          randomExecutionOrder: true
+
+  DesignSystemTests:
+    
+    # templates
+    templates: 
+      - FrameworkTests
+    
+    # templateAttributes
+    templateAttributes: 
+      frameworkPath: libraries/core/DesignSystem
+
+    # dependencies
+    dependencies:
+      - target: DesignSystem
+
+    

@@ -20,5 +20,7 @@ include:
   relativePaths: false
 - path: libraries/core/LocalStorage/project.yml
   relativePaths: false
+- path: libraries/core/DesignSystem/project.yml
+  relativePaths: false
 - path: libraries/domain/Authentication/project.yml
   relativePaths: false
