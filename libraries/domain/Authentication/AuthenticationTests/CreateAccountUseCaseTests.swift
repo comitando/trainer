@@ -1,53 +1,48 @@
 import XCTest
 import AuthenticationInterface
+import DependencyInjector
+import LocalStorage
 @testable import Authentication
 
 final class CreateAccountUseCaseTests: XCTestCase {
-        
-    func testCreateAccountUseCase_createAccount() throws {
-        let (sut, database) = try make()
+    
+    let container = GlobalDependency.container
+    private lazy var localCacheSpy: LocalCacheInterfaceSpy? = {
+        let resolver = container.resolveDependency(LocalCacheInterface.self)
+        return resolver as? LocalCacheInterfaceSpy
+    }()
+    
+    private lazy var userAccountSpy: CreateAccountUseCaseSpy? = {
+        let resolver = container.resolveDependency(UserAccountInterface.self, name: "Repository")
+        return resolver as? CreateAccountUseCaseSpy
+    }()
+    
+    override func setUp() {
+        super.setUp()
+        container.removeAll()
+        AuthenticationRegister.registerDummy(container: container)
+        LocalStorageRegister.registerDummy(container: container)
+    }
+    
+    func testCreateAccountComposite_createAccount_andPersistskeepLogged() throws {
+        let sut = CreateAccountUseCase()
         let data = UserAccount(name: "name", email: "email", gender: .male, birthday: .now)
         
-        try sut.createAccount(data)
-        let result = try database.load(sortBy: SortDescriptor<UserAccountModel>(\.name))
+        try sut.createAccount(data, keepLoggedIn: true)
         
-        XCTAssertEqual(result.count, 1)
+        XCTAssertEqual(localCacheSpy?.methodsCalled, [.save(UserAccountKeepLoggedIn.key)])
     }
     
-    func testCreateAccountUseCase_createMultipleAccount() throws {
-        let (sut, database) = try make()
-        let dataOne = UserAccount(name: "name", email: "email", gender: .male, birthday: .now)
-        let dataTwo = UserAccount(name: "name", email: "email@email", gender: .male, birthday: .now)
-        
-        try sut.createAccount(dataOne)
-        try sut.createAccount(dataTwo)
-        let result = try database.load(sortBy: SortDescriptor<UserAccountModel>(\.name))
-        
-        XCTAssertEqual(result.count, 2)
-    }
-    
-    func testCreateAccountUseCase_createAccount_returnError() throws {
-        let (sut, _) = try make()
-        let dataOne = UserAccount(name: "name", email: "email", gender: .male, birthday: .now)
-        let dataTwo = UserAccount(name: "name", email: "email", gender: .male, birthday: .now)
-        
-        try sut.createAccount(dataOne)
+    func testCreateAccountComposite_createAccount_andNotPersistskeepLogged() throws {
+        let sut = CreateAccountUseCase()
+        let data = UserAccount(name: "name", email: "email", gender: .male, birthday: .now)
         
         do {
-            try sut.createAccount(dataTwo)
-            XCTFail("Expected error when creating duplicate user, but returned success")
-        } catch let error {
-            XCTAssertEqual(error as! UserAccountError, .userExists("email"))
+            userAccountSpy?.returnedError = true
+            try sut.createAccount(data, keepLoggedIn: true)
+            XCTFail("expected failure but retorned success")
+        } catch {
+            XCTAssertEqual(localCacheSpy?.methodsCalled, [])
         }
-    }
-    
-}
-
-private extension CreateAccountUseCaseTests {
-    
-    func make() throws -> (sut: CreateAccountUseCase, database: UserAccountData) {
-        let database = try UserAccountData(useInMemoryStore: true)
-        let sut = CreateAccountUseCase(database: database)
-        return (sut, database)
     }
 }

@@ -3,7 +3,7 @@ import Foundation
 import AuthenticationInterface
 import LocalStorage
 
-final class CreateAccountUseCase: UserAccountInterface {
+final class CreateAccountRepository: UserAccountInterface {
     
     private let database: UserAccountData
     private let sortByDefault: SortDescriptor = SortDescriptor<UserAccountModel>(\.name)
@@ -12,7 +12,7 @@ final class CreateAccountUseCase: UserAccountInterface {
         self.database = database
     }
     
-    func createAccount(_ data: UserAccount) throws {
+    func createAccount(_ data: UserAccount, keepLoggedIn: Bool = true) throws {
         let email: String = data.email
         let predicate = #Predicate<UserAccountModel> { $0.email.localizedStandardContains(email) }
         

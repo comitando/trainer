@@ -23,6 +23,10 @@ public struct UserAccount: Equatable {
     
 }
 
+public enum UserAccountKeepLoggedIn {
+    public static var key = "UserAccountKeepLogged"
+}
+
 public enum UserAccountGender: String {
     case male, female
 }

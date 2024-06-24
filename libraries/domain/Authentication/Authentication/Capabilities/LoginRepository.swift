@@ -1,7 +1,7 @@
 import Foundation
 import AuthenticationInterface
 
-final class LoginUseCase: LoginInterface {
+final class LoginRepository: LoginInterface {
     
     private let database: UserAccountData
     private let sortByDefault: SortDescriptor = SortDescriptor<UserAccountModel>(\.name)
@@ -10,7 +10,7 @@ final class LoginUseCase: LoginInterface {
         self.database = database
     }
     
-    func auth(email: String) throws -> Result<UserAccount, UserAccountError> {
+    func auth(email: String, keepLoggedIn: Bool = false) throws -> Result<UserAccount, UserAccountError> {
         let predicate = #Predicate<UserAccountModel> { $0.email.localizedStandardContains(email) }
         guard let dataModel = try database.search(predicate: predicate, sortBy: sortByDefault).first else {
             return .failure(.notFound)
