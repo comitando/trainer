@@ -1,0 +1,56 @@
+############
+# Targets
+############
+
+targets:
+
+  AuthenticationInterface:
+    
+    # templates
+    templates: 
+      - StaticFramework
+    
+    # templateAttributes
+    templateAttributes: 
+      frameworkPath: libraries/domain/Authentication
+    
+  Authentication:
+    
+    # templates
+    templates: 
+      - StaticFramework
+    
+    # templateAttributes
+    templateAttributes: 
+      frameworkPath: libraries/domain/Authentication
+    
+    dependencies:
+     - target: DependencyInjector
+     - target: LocalStorage
+     - target: AuthenticationInterface
+      
+    # scheme
+    scheme:
+      gatherCoverageData: true
+      coverageTargets:
+        - Authentication
+      testTargets:
+        - name: AuthenticationTests
+          parallelizable: true
+          randomExecutionOrder: true
+
+  AuthenticationTests:
+    
+    # templates
+    templates: 
+      - FrameworkTests
+    
+    # templateAttributes
+    templateAttributes: 
+      frameworkPath: libraries/domain/Authentication
+
+    # dependencies
+    dependencies:
+      - target: Authentication
+
+    
