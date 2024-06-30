@@ -9,8 +9,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-read -p "Digite o tipo de automação: (ex: module): " type
-
 if [ $1 == "module" ]; then
     automation/.build/release/Automations $1 $2 $3 $4
 fi
