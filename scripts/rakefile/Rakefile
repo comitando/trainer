@@ -1,0 +1,48 @@
+require 'rake'
+require 'tty-prompt'
+require 'yaml'
+
+###############################################################################
+#                                Prompt                                       #
+###############################################################################
+def prompt_select(phrase, options)
+    prompt = TTY::Prompt.new
+    selected_option = prompt.select(phrase, options)
+    return selected_option
+end
+
+def prompt_select_module
+    phrase = "Tell us which framework or app you want to use, do you want to write or select an option?"
+    options = ["write", "select"]
+    inputOption = prompt_select(phrase, options)
+
+    if inputOption === "write" 
+        STDOUT.puts "What is the name of your framework or app (use the CamelCase pattern)"
+        return STDIN.gets.strip
+    else
+        prompt_select_all_module("all")
+    end
+end
+
+def prompt_select_all_module(type)
+    paths = ["apps", "libraries/feature", "libraries/providers", "libraries/foundation"]
+    
+    if type === "libraries"
+        paths.delete_at(0)
+    end
+
+    options = []
+    
+    paths.each do |path|
+        if File.directory?(path)
+            subdirectories = Dir.entries(path).select { |entry| File.directory?(File.join(path, entry)) && !['.', '..'].include?(entry) }
+            subdirectories.each do |directory|
+                options << directory
+            end
+        end        
+    end
+
+    phrase = "Select an option"
+    inputOption = prompt_select(phrase, options)
+    return inputOption
+end

@@ -11,13 +11,8 @@ fi
 
 read -p "Digite o tipo de automação: (ex: module): " type
 
-if [ $type == "module" ]; then
-    read -p "Digite o nome do provider (ex: ui, domain, core): " provider_name
-    read -p "Digite o nome do module: " module_name
-    read -p "Seu module deve conter interface (ex: true, false): " has_interface
-
-    # Executes the executable with the argument passed to the script
-    automation/.build/release/Automations $type $provider_name $module_name $has_interface
+if [ $1 == "module" ]; then
+    automation/.build/release/Automations $1 $2 $3 $4
 fi
 
 # Captures the exit code of the Swift executable
