@@ -1,0 +1,42 @@
+############
+# Targets
+############
+
+targets:
+
+  Coordinator:
+    
+    # templates
+    templates:
+      - StaticFramework
+    
+    # templateAttributes
+    templateAttributes:
+      frameworkPath: libraries/core/Coordinator
+    
+    dependencies:
+     - target: DependencyInjector
+      
+    # scheme
+    scheme:
+      gatherCoverageData: true
+      coverageTargets:
+        - Coordinator
+      testTargets:
+        - name: CoordinatorTests
+          parallelizable: true
+          randomExecutionOrder: true
+
+  CoordinatorTests:
+    
+    # templates
+    templates:
+      - FrameworkTests
+    
+    # templateAttributes
+    templateAttributes:
+      frameworkPath: libraries/core/Coordinator
+
+    # dependencies
+    dependencies:
+      - target: Coordinator
