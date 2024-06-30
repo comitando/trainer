@@ -1,0 +1,42 @@
+############
+# Targets
+############
+
+targets:
+
+  AuthenticationUI:
+    
+    # templates
+    templates:
+      - StaticFramework
+    
+    # templateAttributes
+    templateAttributes:
+      frameworkPath: libraries/ui/AuthenticationUI
+    
+    dependencies:
+     - target: DependencyInjector
+      
+    # scheme
+    scheme:
+      gatherCoverageData: true
+      coverageTargets:
+        - AuthenticationUI
+      testTargets:
+        - name: AuthenticationUITests
+          parallelizable: true
+          randomExecutionOrder: true
+
+  AuthenticationUITests:
+    
+    # templates
+    templates:
+      - FrameworkTests
+    
+    # templateAttributes
+    templateAttributes:
+      frameworkPath: libraries/ui/AuthenticationUI
+
+    # dependencies
+    dependencies:
+      - target: AuthenticationUI
