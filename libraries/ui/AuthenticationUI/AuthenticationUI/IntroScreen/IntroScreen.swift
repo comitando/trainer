@@ -1,10 +1,8 @@
 import SwiftUI
 import DesignSystem
 
-public struct IntroScreen: View {
-    public init() {}
-    
-    public var body: some View {
+struct IntroScreen: View {
+    var body: some View {
         VStack {
             Spacer()
             Text("Trainer")
@@ -43,8 +41,4 @@ public struct IntroScreen: View {
         }
         .background(Color.colorFrom(dsColor: .neutralStronger).edgesIgnoringSafeArea(.all))
     }
-}
-
-#Preview {
-    IntroScreen()
 }
