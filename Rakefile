@@ -11,20 +11,15 @@ namespace :libraries do
         moduleStruct = prompt_select(modulePhrase, moduleOptions)
 
         if moduleStruct === "module"
-            providerPhrase = "2. Selecione o tipo de provider:  "
-            providerOptions = ["core", "domain", "ui"]
-            providerStruct = prompt_select(providerPhrase, providerOptions)
-
-            STDOUT.puts "3. Qual o nome do seu framework? (use the CamelCase pattern)"
-            frameworkDomain = STDIN.gets.strip
-
-            interfacePhrase = "4. Precisa de um framework de Interface:  "
-            interfaceOptions = ["true", "false"]
-            interfaceStruct = prompt_select(interfacePhrase, interfaceOptions)
-
-            sh "find scripts -name '*.sh' -exec chmod +x {} +"
-            sh "cd scripts/spm && ./automations.sh #{moduleStruct} #{providerStruct} #{frameworkDomain} #{interfaceStruct} && cd ../../"
-            sh "ls"
+            createModule(moduleStruct)
         end
+    end
+end
+
+namespace :xcode do
+    task :generate do
+        sh "killall Xcode || true"
+        sh "xcodegen generate && pod install"
+        sh "open Trainer.xcworkspace"
     end
 end

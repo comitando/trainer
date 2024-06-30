@@ -1,21 +1,10 @@
 ---
 name: Trainer
 include:
-###############################
-# Settings
-###############################
 - path: scripts/xcodegen/settings.yml
   relativePaths: false
-
-###############################
-# TargetTemplates
-###############################
 - path: scripts/xcodegen/targetTemplates.yml
   relativePaths: false
-
-# ###############################
-# Targets
-# ###############################
 - path: libraries/core/DependencyInjector/project.yml
   relativePaths: false
 - path: libraries/core/LocalStorage/project.yml
