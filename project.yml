@@ -13,3 +13,5 @@ include:
   relativePaths: false
 - path: libraries/domain/Authentication/project.yml
   relativePaths: false
+- path: libraries/core/Coordinator/project.yml
+  relativePaths: false
