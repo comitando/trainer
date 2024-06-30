@@ -6,7 +6,7 @@ struct IntroScreen: View {
         VStack {
             Spacer()
             Text("Trainer")
-                .font(.largeTitle)
+                .font(.fontFrom(font: .medium, size: 48))
                 .foregroundColor(.colorFrom(dsColor: .neutralSoftest))
                 .padding(.bottom)
             Spacer()
@@ -15,6 +15,7 @@ struct IntroScreen: View {
                     // Ação para criar conta
                 }) {
                     Text("Entrar")
+                        .font(.fontFrom(font: .semiBold, size: 16))
                         .textCase(.uppercase)
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -28,6 +29,7 @@ struct IntroScreen: View {
                     // Ação para login
                 }) {
                     Text("Criar conta")
+                        .font(.fontFrom(font: .semiBold, size: 16))
                         .textCase(.uppercase)
                         .frame(maxWidth: .infinity)
                         .padding()

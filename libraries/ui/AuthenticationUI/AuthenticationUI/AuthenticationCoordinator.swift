@@ -7,7 +7,7 @@ public final class AuthenticationCoordinator: Coordinator {
     public var childCoordinators: [Coordinator] = []
     public var navigationController: UINavigationController
     
-    public required init(navigationController: UINavigationController) {
+    public required init(navigationController: UINavigationController = .init()) {
         self.navigationController = navigationController
     }
     
