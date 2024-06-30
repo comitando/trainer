@@ -16,6 +16,7 @@ targets:
     
     dependencies:
      - target: DependencyInjector
+     - target: Coordinator
      - target: DesignSystem
       
     # scheme
