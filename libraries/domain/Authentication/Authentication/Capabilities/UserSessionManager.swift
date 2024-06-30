@@ -3,15 +3,13 @@ import AuthenticationInterface
 import LocalStorage
 import DependencyInjector
 
-final class UserSessionManager {
+final class UserSessionManager: UserSession {
     
     @Inject(name: "Repository") private var useCase: LoginInterface
     @Inject private var localCache: LocalCacheInterface
     
-    private(set) var userData: UserAccount?
-}
-
-extension UserSessionManager: UserSession {
+    private(set) var userAccount: UserAccount?
+    
     func keepLoggedIn() -> Result<String, UserAccountError> {
         guard let email = localCache.load(key: UserAccountKeepLoggedIn.key) as? String else {
             return .failure(.notFound)
@@ -22,7 +20,7 @@ extension UserSessionManager: UserSession {
     func restoreSession(_ email: String) -> Result<UserAccount, UserAccountError> {
         do {
             let result = try useCase.auth(email: email, keepLoggedIn: true)
-            _ = result.map { [weak self] newUser in self?.userData = newUser }
+            _ = result.map { [weak self] newUser in self?.userAccount = newUser }
             return result
         } catch {
             return .failure(.notFound)
