@@ -2,7 +2,12 @@ import UIKit
 import SwiftUI
 import Coordinator
 
-public final class AuthenticationCoordinator: Coordinator {
+public protocol AuthCoordinator: Coordinator {
+    func pushLogin()
+    func pushCreateAccount()
+}
+
+public final class AuthenticationCoordinator: AuthCoordinator {
     public var parent: Coordinator?
     public var childCoordinators: [Coordinator] = []
     public var navigationController: UINavigationController
@@ -18,10 +23,22 @@ public final class AuthenticationCoordinator: Coordinator {
         navigationController.setViewControllers([introScreen()], animated: false)
         return navigationController
     }
+    
+    public func pushLogin() {
+        let controller = UIHostingController(rootView: Login())
+        navigationController.pushViewController(controller, animated: true)
+    }
+    
+    public func pushCreateAccount() {
+        let controller = UIViewController()
+        navigationController.pushViewController(controller, animated: true)
+    }
 }
 
 private extension AuthenticationCoordinator {
     func introScreen() -> UIViewController {
-        return UIHostingController(rootView: IntroScreen())
+        let viewModel = IntroScreenViewModel(coordinator: self)
+        let controller = IntroScreen(viewModel: viewModel)
+        return UIHostingController(rootView: controller)
     }
 }

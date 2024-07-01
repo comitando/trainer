@@ -18,6 +18,7 @@ targets:
      - target: DependencyInjector
      - target: Coordinator
      - target: DesignSystem
+     - target: AuthenticationInterface
       
     # scheme
     scheme:

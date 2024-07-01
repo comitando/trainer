@@ -2,6 +2,9 @@ import SwiftUI
 import DesignSystem
 
 struct IntroScreen: View {
+    
+    @State private var viewModel: IntroScreenInterface
+    
     var body: some View {
         VStack {
             Spacer()
@@ -12,7 +15,7 @@ struct IntroScreen: View {
             Spacer()
             VStack {
                 Button(action: {
-                    // Ação para criar conta
+                    viewModel.showLogin()
                 }) {
                     Text("Entrar")
                         .font(.fontFrom(font: .semiBold, size: 16))
@@ -26,7 +29,7 @@ struct IntroScreen: View {
                 .padding(.horizontal)
                 
                 Button(action: {
-                    // Ação para login
+                    viewModel.showCreateAccount()
                 }) {
                     Text("Criar conta")
                         .font(.fontFrom(font: .semiBold, size: 16))
@@ -42,5 +45,9 @@ struct IntroScreen: View {
             .padding(.bottom, 30)
         }
         .background(Color.colorFrom(dsColor: .neutralStronger).edgesIgnoringSafeArea(.all))
+    }
+    
+    init(viewModel: IntroScreenInterface) {
+        self.viewModel = viewModel
     }
 }
