@@ -12,6 +12,7 @@ struct Login: View {
                 Spacer()
                 Text("Manter logado?")
                 Toggle("", isOn: $viewModel.stayLoggedIn).labelsHidden()
+                    .tint(.colorFrom(dsColor: .primary))
             }
             .padding(.horizontal)
             .padding(.top, 20)

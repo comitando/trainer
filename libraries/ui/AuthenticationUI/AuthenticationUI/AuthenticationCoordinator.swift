@@ -30,7 +30,7 @@ public final class AuthenticationCoordinator: AuthCoordinator {
     }
     
     public func pushCreateAccount() {
-        let controller = UIViewController()
+        let controller = UIHostingController(rootView: SignUpView())
         navigationController.pushViewController(controller, animated: true)
     }
 }

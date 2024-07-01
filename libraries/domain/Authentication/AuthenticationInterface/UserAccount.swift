@@ -27,8 +27,10 @@ public enum UserAccountKeepLoggedIn {
     public static var key = "UserAccountKeepLogged"
 }
 
-public enum UserAccountGender: String {
+public enum UserAccountGender: String, CaseIterable, Identifiable {
     case male, female
+    
+    public var id: String { self.rawValue }
 }
 
 public enum UserAccountError: Error, Equatable {
