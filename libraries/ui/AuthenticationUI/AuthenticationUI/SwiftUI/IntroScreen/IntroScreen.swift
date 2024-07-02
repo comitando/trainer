@@ -3,7 +3,7 @@ import DesignSystem
 
 struct IntroScreen: View {
     
-    @State private var viewModel: IntroScreenInterface
+    @State private var viewModel: IntroScreenViewModel
     
     var body: some View {
         VStack {
@@ -47,7 +47,7 @@ struct IntroScreen: View {
         .background(Color.colorFrom(dsColor: .neutralStronger).edgesIgnoringSafeArea(.all))
     }
     
-    init(viewModel: IntroScreenInterface) {
+    init(viewModel: IntroScreenViewModel) {
         self.viewModel = viewModel
     }
 }

@@ -17,7 +17,10 @@ public final class AuthenticationCoordinator: AuthCoordinator {
     }
     
     public func start() {}
-    public func finish() {}
+    
+    public func finish() {
+        // TODO: NextScreen Home
+    }
     
     public func start() -> UINavigationController {
         navigationController.setViewControllers([introScreen()], animated: false)
@@ -25,12 +28,16 @@ public final class AuthenticationCoordinator: AuthCoordinator {
     }
     
     public func pushLogin() {
-        let controller = UIHostingController(rootView: Login())
+        let viewModel = LoginViewModel(coordinator: self)
+        let login = Login(viewModel: viewModel)
+        let controller = UIHostingController(rootView: login)
         navigationController.pushViewController(controller, animated: true)
     }
     
     public func pushCreateAccount() {
-        let controller = UIHostingController(rootView: SignUpView())
+        let viewModel = SignUpViewModel(coordinator: self)
+        let signUp = SignUpView(viewModel: viewModel)
+        let controller = UIHostingController(rootView: signUp)
         navigationController.pushViewController(controller, animated: true)
     }
 }

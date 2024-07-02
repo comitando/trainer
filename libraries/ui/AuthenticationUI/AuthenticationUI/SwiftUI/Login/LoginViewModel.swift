@@ -4,14 +4,18 @@ import AuthenticationInterface
 import DependencyInjector
 
 final class LoginViewModel: ObservableObject {
+    
+    @Inject private var loginUseCase: LoginInterface
+    
     @Published var email: String = ""
     @Published var isButtonDisabled: Bool = false
     @Published var stayLoggedIn: Bool = true
-    @Inject private var loginUseCase: LoginInterface
     
     private var cancellables = Set<AnyCancellable>()
+    weak var coordinator: AuthCoordinator?
     
-    init() {
+    init(coordinator: AuthCoordinator) {
+        self.coordinator = coordinator
         $email
             .map { email in
                 return !email.isEmpty && email.contains("@") && email.contains(".")
@@ -24,10 +28,8 @@ final class LoginViewModel: ObservableObject {
         do {
             let result = try loginUseCase.auth(email: email, keepLoggedIn: stayLoggedIn)
             switch result {
-            case .success(let model):
-                print(model.name)
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .success: coordinator?.finish()
+            case let .failure(error): print(error.localizedDescription)
             }
         } catch {
             print(error.localizedDescription)

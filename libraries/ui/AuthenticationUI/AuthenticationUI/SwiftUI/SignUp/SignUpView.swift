@@ -3,7 +3,7 @@ import DesignSystem
 import AuthenticationInterface
 
 struct SignUpView: View {
-    @StateObject private var viewModel = SignUpViewModel()
+    @StateObject private var viewModel: SignUpViewModel
     @State private var showingDatePicker = false
     
     var body: some View {
@@ -70,7 +70,7 @@ struct SignUpView: View {
             Spacer()
             
             Button(action: {
-                
+                viewModel.createAccount()
             }) {
                 Text("Criar conta")
                     .font(.fontFrom(font: .semiBold, size: 16))
@@ -87,6 +87,10 @@ struct SignUpView: View {
         }
         .background(Color.colorFrom(dsColor: .neutralStronger).edgesIgnoringSafeArea(.all))
         .navigationTitle("Criar conta")
+    }
+    
+    init(viewModel: SignUpViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
     
     func background() -> Color? {

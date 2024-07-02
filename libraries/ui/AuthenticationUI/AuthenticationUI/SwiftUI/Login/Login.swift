@@ -3,7 +3,7 @@ import DesignSystem
 import DependencyInjector
 
 struct Login: View {
-    @StateObject private var viewModel = LoginViewModel()
+    @StateObject private var viewModel: LoginViewModel
     
     var body: some View {
         VStack {
@@ -43,6 +43,10 @@ struct Login: View {
         }
         .background(Color.colorFrom(dsColor: .neutralStronger).edgesIgnoringSafeArea(.all))
         .navigationTitle("Entrar")
+    }
+    
+    init(viewModel: LoginViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel) 
     }
     
     func background() -> Color? {
