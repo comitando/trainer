@@ -30,9 +30,10 @@ final class SignUpViewModel: ObservableObject {
         let model = UserAccount(name: name, email: email, gender: gender, birthday: birthdate)
         do {
             try signUpUseCase.createAccount(model, keepLoggedIn: stayLoggedIn)
-            print("Usuário criado com sucesso! Bem vindo, \(model.name)")
+            coordinator?.finish()
+            print("[Debug Info]: Usuário criado com sucesso! Bem vindo, \(model.name)")
         } catch {
-            print(error.localizedDescription)
+            print("[Debug Info]: \(error.localizedDescription)")
         }
     }
 }

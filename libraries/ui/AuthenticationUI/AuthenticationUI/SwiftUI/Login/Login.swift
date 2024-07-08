@@ -25,6 +25,7 @@ struct Login: View {
                     .padding(.horizontal)
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
+                    .autocorrectionDisabled()
             }
             .padding(10)
             .background(Color.colorFrom(dsColor: .neutralSoft))

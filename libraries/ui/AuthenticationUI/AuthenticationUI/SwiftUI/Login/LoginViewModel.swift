@@ -28,11 +28,14 @@ final class LoginViewModel: ObservableObject {
         do {
             let result = try loginUseCase.auth(email: email, keepLoggedIn: stayLoggedIn)
             switch result {
-            case .success: coordinator?.finish()
-            case let .failure(error): print(error.localizedDescription)
+            case let .success(user):
+                print("[Debug Info]: Bem vindo, \(user.name)")
+                coordinator?.finish()
+            case let .failure(error): 
+                print("[Debug Info]: \(error.localizedDescription)")
             }
         } catch {
-            print(error.localizedDescription)
+            print("[Debug Info]: \(error.localizedDescription)")
         }
     }
 }

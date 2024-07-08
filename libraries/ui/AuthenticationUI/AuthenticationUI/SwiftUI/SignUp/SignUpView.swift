@@ -32,6 +32,7 @@ struct SignUpView: View {
                     .padding(.horizontal)
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
+                    .autocorrectionDisabled()
                 
                 HStack {
                     Text("Data de Nascimento")

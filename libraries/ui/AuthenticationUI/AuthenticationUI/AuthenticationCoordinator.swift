@@ -17,7 +17,11 @@ public final class AuthenticationCoordinator: AuthCoordinator {
     }
     
     public func start() {}
-    public func finish() {}
+    
+    public func finish() {
+        navigationController.popToRootViewController(animated: true)
+        // TODO: Deeplink Home
+    }
     
     public func start() -> UINavigationController {
         navigationController.setViewControllers([introScreen()], animated: false)
