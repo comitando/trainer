@@ -8,22 +8,28 @@ struct Login: View {
     var body: some View {
         VStack {
             Spacer()
-            HStack {
-                Spacer()
-                Text("Manter logado?")
-                Toggle("", isOn: $viewModel.stayLoggedIn).labelsHidden()
-                    .tint(.colorFrom(dsColor: .primary))
-            }
-            .padding(.horizontal)
-            .padding(.top, 20)
             
-            TextField("Digite seu email", text: $viewModel.email)
-                .padding()
-                .background(Color(UIColor.systemGray6))
-                .cornerRadius(8)
+            VStack {
+                HStack {
+                    Spacer()
+                    Text("Manter logado?")
+                    Toggle("", isOn: $viewModel.stayLoggedIn).labelsHidden()
+                        .tint(.colorFrom(dsColor: .primary))
+                }
                 .padding(.horizontal)
-                .keyboardType(.emailAddress)
-                .autocapitalization(.none)
+                
+                TextField("Digite seu email", text: $viewModel.email)
+                    .padding()
+                    .background(Color(UIColor.systemGray6))
+                    .cornerRadius(8)
+                    .padding(.horizontal)
+                    .keyboardType(.emailAddress)
+                    .autocapitalization(.none)
+            }
+            .padding(10)
+            .background(Color.colorFrom(dsColor: .neutralSoft))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding()
             
             Button(action: {
                 viewModel.makeLogin()
@@ -41,6 +47,13 @@ struct Login: View {
             .padding(.bottom, 30)
             .disabled(!viewModel.isButtonDisabled)
         }
+        .background(
+            Image.imageFrom(.fullscreenImage)!
+                .resizable()
+                .scaledToFill()
+                .opacity(0.8)
+                .edgesIgnoringSafeArea(.all)
+        )
         .background(Color.colorFrom(dsColor: .neutralStronger).edgesIgnoringSafeArea(.all))
         .navigationTitle("Entrar")
     }

@@ -17,10 +17,7 @@ public final class AuthenticationCoordinator: AuthCoordinator {
     }
     
     public func start() {}
-    
-    public func finish() {
-        // TODO: NextScreen Home
-    }
+    public func finish() {}
     
     public func start() -> UINavigationController {
         navigationController.setViewControllers([introScreen()], animated: false)

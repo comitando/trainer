@@ -44,6 +44,13 @@ struct IntroScreen: View {
             }
             .padding(.bottom, 30)
         }
+        .background(
+            Image.imageFrom(.fullscreenImage)!
+                .resizable()
+                .scaledToFill()
+                .opacity(0.8)
+                .edgesIgnoringSafeArea(.all)
+        )
         .background(Color.colorFrom(dsColor: .neutralStronger).edgesIgnoringSafeArea(.all))
     }
     
